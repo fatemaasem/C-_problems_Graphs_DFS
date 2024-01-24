@@ -1,0 +1,72 @@
+#include <iostream>
+#include<fstream>
+#include<vector>
+#include<queue>
+#include <map>
+#include<cmath>
+#include<algorithm>
+using namespace std;
+int vis[100003];
+vector<int>arr[100003];
+vector<int>v1;
+vector<int>v2;
+vector<int>Y;
+int c=0;
+void fun(int ind,int even,int odd,int level){
+	vis[ind]=1;
+	if(level%2==0){
+		if(even%2!=0){
+			if(v1[ind]==0)v1[ind]=1;
+			else
+			v1[ind]=0;
+		}
+	}
+	if(level%2!=0){
+			if(odd%2!=0){
+			if(v1[ind]==0)v1[ind]=1;
+			else
+			v1[ind]=0;
+		}
+	}
+	if (v1[ind]!=v2[ind]){
+		Y.push_back(ind);
+		if(level%2==0)even++;
+		else
+		odd++;
+		c++;
+	}
+//	cout<<ind<<" "<<even<<" "<<odd<<" "<<level<<"\n";
+	for(int i=0;i<arr[ind].size();i++){
+		if(vis[arr[ind][i]]==0){
+			fun(arr[ind][i],even,odd,level+1);
+		}
+	}
+}
+int main() {
+int n,m;
+cin>>n;
+m=n-1;
+for(int i=0;i<m;i++){
+	int x;int y;cin>>x>>y;
+	arr[x].push_back(y);
+	arr[y].push_back(x);
+}  
+v1.push_back(0);
+for(int i=0;i<n;i++){
+	int x;
+	cin>>x;
+	v1.push_back(x);
+}
+v2.push_back(0);
+for(int i=0;i<n;i++){
+	int x;
+	cin>>x;
+	v2.push_back(x);
+}
+fun(1,0,0,0);
+cout<<c<<"\n";
+sort(Y.begin(),Y.end());
+for(int i=0;i<c;i++)cout<<Y[i]<<"\n";
+cout<<"\n";
+    return 0;
+}
