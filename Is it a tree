@@ -1,0 +1,48 @@
+#include <iostream>
+
+using namespace std;
+#include<vector>
+
+	const int N=1e4+1;
+	vector<int>arr[N];
+void data(int m){
+
+	for(int i=0;i<m;i++){
+		int x,y;
+		cin>>x>>y;
+		arr[x].push_back(y);
+		arr[y].push_back(x);
+		
+	}
+}
+int vis[N];
+int ans=0;
+void  DFS(int ind){
+
+
+	vis[ind]=1;
+for(int i=0;i<arr[ind].size();i++){
+	if(vis[arr[ind][i]]==0){
+		
+	DFS(arr[ind][i]);
+	}
+}
+
+}
+int main(int argc, char** argv) {
+		int n,m;
+	cin>>n>>m;
+	if(n-1!=m){
+cout<<"NO";
+return 0;}
+	data(m);
+	DFS(1);
+	int a=0;
+	for(int i=1;i<=n;i++)if(vis[i])a++;
+if(a==n)cout<<"YES\n";
+else
+cout<<"NO\n";
+
+
+	return 0;
+}
