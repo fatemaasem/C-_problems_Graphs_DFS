@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+#include <set>>
+#include <algorithm>
+ 
+using namespace std;
+int ma=0;
+int N=2005;
+vector<int>arr[2005];
+int vis[2005];
+void fun(int ind,int ans){
+	if(arr[ind].size()==0){
+	ma=max(ma,ans);
+		return;
+	
+}
+for(int i=0;i<arr[ind].size();i++){
+	fun(arr[ind][i],ans+1);
+}
+}
+int main() {
+int n;
+cin>>n;
+vector<pair<int,int> >p;
+for(int i=0;i<n;i++){
+	int x;
+	cin>>x;
+	p.push_back({i+1,x});
+	if(x!=-1){
+		arr[x].push_back(i+1);
+	}
+}
+ 
+for(int i=0;i<n;i++){
+	if(p[i].second==-1){
+		fun(i+1,1);
+	}
+}
+cout<<ma<<"\n";
+ 
+    return 0;
+}
