@@ -1,0 +1,38 @@
+#include <iostream>
+#include<fstream>
+#include<vector>
+#include<queue>
+#include <map>
+#include<cmath>
+#include<algorithm>
+using namespace std;
+int vis[55];
+vector<int>arr[55];
+void fun(int ind){
+	vis[ind]=1;
+	for(int i=0;i<arr[ind].size();i++){
+		if(vis[arr[ind][i]]==0){
+			fun(arr[ind][i]);
+		}
+	}
+}
+int main() {
+int n,m;
+cin>>n>>m;
+for(int i=0;i<m;i++){
+	int x;int y;cin>>x>>y;
+	arr[x].push_back(y);
+	arr[y].push_back(x);
+}  
+int c=0;
+for(int i=1;i<=n;i++){
+	if(!vis[i]){
+		fun(i);
+		c++;
+	}
+}
+int as=n-c;
+long long ans=pow(2,as);
+cout<<ans<<"\n";
+    return 0;
+}
