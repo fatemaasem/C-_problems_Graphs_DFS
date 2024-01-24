@@ -1,0 +1,61 @@
+#include <iostream>
+#include<fstream>
+#include<vector>
+#include<queue>
+#include <map>
+#include<cmath>
+#include<algorithm>
+using namespace std;
+int vis[100003];
+vector<int>arr[100003];
+vector<int>v1;
+vector<int>v2;
+vector<int>Y;
+int c = 0;
+int per[100003];
+int ans;
+int r1, r2;
+void fun(int ind) {
+	vis[ind] = 1;
+	
+ 
+	for (int i = 0; i < arr[ind].size(); i++) {
+		if (vis[arr[ind][i]] == 0) {
+			per[arr[ind][i]] = ind;
+			fun(arr[ind][i]);
+		}
+	}
+ 
+}
+int main() {
+	int n, m;
+	cin >> n;
+	m = n - 1;
+ 
+	cin >> r1 >> r2;
+	int j = 1;
+ 
+	for (int i = 0; i < m; i++) {
+		int x;
+		cin >> x;
+		if (j == r1)j++;
+		arr[j].push_back(x);
+		arr[x].push_back(j);
+		j++;
+ 
+	}
+	fun(r2);
+	/*
+	for (int i = 1; i <= n; i++) {
+		cout << i << "** ";
+		for (auto io : arr[i])cout << io << " ";
+		cout << "\n";
+	}
+	*/
+	for (int i = 1; i <= n; i++) {
+		if(i!=r2)
+		cout << per[i] << " ";
+	}
+ 
+	return 0;
+}
