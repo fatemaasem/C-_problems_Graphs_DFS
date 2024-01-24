@@ -1,0 +1,48 @@
+#include <iostream>
+#include<fstream>
+#include<vector>
+#include<queue>
+#include <map>
+#include<cmath>
+#include<algorithm>
+using namespace std;
+ 
+ 
+vector<int>v1;
+vector<int>v2;
+vector<int>Y;
+map<int, vector<int> >arr;
+map<int, int>vis;
+int c = 0;
+void fun(int ind) {
+	vis[ind] = 1;
+	cout << ind << " ";
+	for (int i = 0; i < arr[ind].size(); i++) {
+		if (vis.find(arr[ind][i]) == vis.end()) {
+			fun(arr[ind][i]);
+		}
+	}
+ 
+}
+int main() {
+	int n, m;
+	cin >> m;
+	n = m + 1;
+	int val;
+	for (int i = 0; i < m; i++) {
+		int x; int y; cin >> x >> y;
+		if (i == 0)val = x;
+		arr[x].push_back(y);
+		arr[y].push_back(x);
+	}
+ 
+	
+	for (auto io : arr) {
+		if (io.second.size() == 1) {
+			fun(io.first);
+			break;
+		}
+	}
+ 
+	return 0;
+}
